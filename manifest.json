@@ -2,12 +2,11 @@
   "name": "StudyMate",
   "short_name": "StudyMate",
   "description": "StudyMate helps students focus, plan and archive their learning.",
-  "start_url": "./index.html",
+  "id": "/StudyMate-/",
+  "start_url": "/StudyMate-/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#001f5b",
-  "orientation": "portrait",
-  "lang": "en"
 
   "icons": [
     {
@@ -21,9 +20,4 @@
       "type": "image/png"
     }
   ]
-}
-
-{
-  "id": "/StudyMate-/",
-  "start_url": "/StudyMate-/"
 }
