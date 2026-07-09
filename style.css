@@ -3337,3 +3337,24 @@ transform:translateY(0px);
     white-space: pre-wrap;
     word-break: break-word;
 }
+
+/* Notebook long note text fix */
+
+#viewContent {
+    width: 100%;
+    max-width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.6;
+}
+
+#noteModalContent {
+    width: 90%;
+    max-width: 450px;
+    overflow-x: hidden;
+}
+
+#noteModal {
+    overflow-x: hidden;
+}
