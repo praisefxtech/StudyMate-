@@ -3,21 +3,20 @@
   "short_name": "StudyMate",
   "description": "StudyMate helps students focus, plan and archive their learning.",
   "id": "/StudyMate-/",
-  "start_url": "/StudyMate-/?source=pwa",
+  "start_url": "./",
   "scope": "/StudyMate-/",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#001f5b",
   "icons": [
     {
-      "src": "/StudyMate-/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/StudyMate-/icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
