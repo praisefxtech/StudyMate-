@@ -4488,3 +4488,38 @@ console.log("Service Worker Error:", error);
 });
 
 }
+
+let deferredPrompt;
+
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e) => {
+
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+    if(installBtn){
+        installBtn.style.display = "block";
+    }
+
+});
+
+
+if(installBtn){
+
+installBtn.onclick = async () => {
+
+    if(!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+
+    await deferredPrompt.userChoice;
+
+    deferredPrompt = null;
+
+    installBtn.style.display = "none";
+
+};
+
+}
