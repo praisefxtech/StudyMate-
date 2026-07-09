@@ -3813,66 +3813,6 @@ loader.style.display="none";
 
 
 /* =========================
-   PWA INSTALL BUTTON
-========================= */
-
-let deferredPrompt;
-
-
-window.addEventListener(
-"beforeinstallprompt",
-(e)=>{
-
-e.preventDefault();
-
-deferredPrompt = e;
-
-
-const btn =
-document.getElementById(
-"installBtn"
-);
-
-
-if(btn){
-
-btn.style.display="block";
-
-
-btn.onclick=async()=>{
-
-deferredPrompt.prompt();
-
-
-const choice =
-await deferredPrompt.userChoice;
-
-
-console.log(choice.outcome);
-
-
-deferredPrompt=null;
-
-};
-
-}
-
-});
-
-
-
-window.addEventListener(
-"appinstalled",
-()=>{
-
-console.log(
-"StudyMate installed"
-);
-
-});
-
-
-/* =========================
    NOTIFICATION SOUND
 ========================= */
 
@@ -4489,18 +4429,28 @@ console.log("Service Worker Error:", error);
 
 }
 
-let deferredPrompt;
+
+
+/* =========================
+   PWA INSTALL BUTTON
+========================= */
+
+let deferredPrompt = null;
 
 const installBtn = document.getElementById("installBtn");
 
-window.addEventListener("beforeinstallprompt", (e) => {
+
+window.addEventListener("beforeinstallprompt", (e)=>{
 
     e.preventDefault();
 
     deferredPrompt = e;
 
+
     if(installBtn){
+
         installBtn.style.display = "block";
+
     }
 
 });
@@ -4508,18 +4458,32 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 if(installBtn){
 
-installBtn.onclick = async () => {
+installBtn.addEventListener("click", async ()=>{
 
     if(!deferredPrompt) return;
 
+
     deferredPrompt.prompt();
 
-    await deferredPrompt.userChoice;
+
+    const result = await deferredPrompt.userChoice;
+
+
+    console.log(result.outcome);
+
 
     deferredPrompt = null;
 
+
     installBtn.style.display = "none";
 
-};
+});
 
 }
+
+
+window.addEventListener("appinstalled", ()=>{
+
+console.log("StudyMate installed");
+
+});
