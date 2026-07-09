@@ -1,4 +1,4 @@
-const CACHE_NAME = "studymate-v1-release";
+const CACHE_NAME = "studymate-v4-release";
 
 const FILES_TO_CACHE = [
 
