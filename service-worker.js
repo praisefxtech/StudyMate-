@@ -16,14 +16,14 @@ const FILES_TO_CACHE = [
 
 
 // focus music
-"music/calm.mp3",
-"music/dream.mp3",
-"music/sky.mp3",
-"music/storm.mp3",
-"music/piano.mp3",
-"music/ocean.mp3",
-"music/space.mp3",
-"music/silent.mp3"
+"calm.mp3",
+"dream.mp3",
+"sky.mp3",
+"storm.mp3",
+"piano.mp3",
+"ocean.mp3",
+"space.mp3",
+"silent.mp3"
 
 ];
 
