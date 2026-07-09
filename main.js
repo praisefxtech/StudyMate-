@@ -2272,42 +2272,42 @@ const focusSounds = {
 
  calm:{
    name:"🎹 Emotional Piano",
-   file:"music/calm.mp3"
+   file:"calm.mp3"
  },
 
  sky:{
    name:"🌧Deep-Rain",
-   file:"music/sky.mp3"
+   file:"sky.mp3"
  },
 
  ocean:{
    name:"🌊 Ocean Waves",
-   file:"music/ocean.mp3"
+   file:"ocean.mp3"
  },
 
  silent:{
    name:"🌌 Night Sky",
-   file:"music/silent.mp3"
+   file:"silent.mp3"
  },
 
  space:{
    name:"🌲 Forest",
-   file:"music/space.mp3"
+   file:"space.mp3"
  },
 
  storm:{
    name:"☕ Cozy Café",
-   file:"music/storm.mp3"
+   file:"storm.mp3"
  },
 
  piano:{
    name:"🔥 Fireplace",
-   file:"music/piano.mp3"
+   file:"piano.mp3"
  },
 
  meditation:{
    name:"🕯 Meditation",
-   file:"music/dream.mp3"
+   file:"dream.mp3"
  }
 
 };
