@@ -3317,3 +3317,23 @@ transform:translateY(0px);
 }
 
 }
+/* Fix notebook note opening horizontal scroll */
+
+#noteModal {
+    overflow-x: hidden;
+}
+
+#noteModalContent {
+    max-width: 95%;
+    width: 400px;
+    max-height: 85vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#viewContent {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
