@@ -28,45 +28,31 @@ const FILES_TO_CACHE = [
 ];
 
 
-self.addEventListener("install", function(event){
+self.addEventListener("install", (event) => {
+
+    self.skipWaiting();
 
     event.waitUntil(
-
-        caches.open(CACHE_NAME)
-        .then(function(cache){
-
+        caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(FILES_TO_CACHE);
-
         })
-
     );
 
 });
 
 
-self.addEventListener("activate", function(event){
+self.addEventListener("activate", (event) => {
 
     event.waitUntil(
-
-        caches.keys()
-        .then(function(keys){
-
+        caches.keys().then((keys) => {
             return Promise.all(
-
-                keys.map(function(key){
-
-                    if(key !== CACHE_NAME){
-
+                keys.map((key) => {
+                    if (key !== CACHE_NAME) {
                         return caches.delete(key);
-
                     }
-
                 })
-
             );
-
-        })
-
+        }).then(() => self.clients.claim())
     );
 
 });
