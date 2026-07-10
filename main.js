@@ -4430,76 +4430,41 @@ console.log("Service Worker Error:", error);
 }
 
 
-// ==============================
-// PWA INSTALL BUTTON
-// ==============================
-
 let deferredPrompt;
 
 const installBtn = document.getElementById("installBtn");
 
+window.addEventListener("beforeinstallprompt", (event) => {
 
-// Listen for install availability
-window.addEventListener("beforeinstallprompt", (e) => {
+    event.preventDefault();
 
-    // Stop Chrome from showing its own prompt
-    e.preventDefault();
+    deferredPrompt = event;
 
-    // Save the event
-    deferredPrompt = e;
-
-    console.log("Install prompt ready");
-
-    // Keep button visible
-    if (installBtn) {
-        installBtn.style.display = "block";
-    }
+    console.log("✅ Install prompt captured");
 
 });
 
 
-// Button click
-if (installBtn) {
+installBtn.addEventListener("click", async () => {
 
-    installBtn.addEventListener("click", async () => {
+    console.log("🔥 Button clicked");
 
-        console.log("Install button clicked");
+    if (deferredPrompt) {
 
-
-        if (!deferredPrompt) {
-
-            alert("Install is not available yet. Open the app in Chrome and try again.");
-
-            return;
-
-        }
-
-
-        // Show install popup
         deferredPrompt.prompt();
 
+        const choice = await deferredPrompt.userChoice;
 
-        // Wait for user response
-        const result = await deferredPrompt.userChoice;
+        console.log(choice.outcome);
 
-
-        console.log("Install choice:", result.outcome);
-
-
-        // Clear prompt
         deferredPrompt = null;
 
+    } else {
 
-    });
+        alert("Chrome has not allowed installation yet. Check PWA setup.");
 
-}
+        console.log("❌ No install prompt available");
 
-
-// Detect successful installation
-window.addEventListener("appinstalled", () => {
-
-    console.log("App installed successfully");
-
-    alert("StudyMate installed successfully 🎉");
+    }
 
 });
