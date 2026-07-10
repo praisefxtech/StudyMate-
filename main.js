@@ -4432,71 +4432,85 @@ console.log("Service Worker Error:", error);
 
 
 
+
 let deferredPrompt;
 
-function removeInstallButton() {
-    const installBtn = document.getElementById("installBtn");
+const installBtn = document.getElementById("installBtn");
 
-    if (installBtn) {
-        installBtn.remove();
-        console.log("Install button removed");
+
+// Check if app is already installed
+function checkInstalled() {
+
+    const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+
+    if (isStandalone) {
+
+        if (installBtn) {
+            installBtn.remove();
+        }
+
+        console.log("App is installed");
+
+        return true;
     }
+
+    return false;
 }
 
 
-// Wait until page fully loads
+// Run check when page loads
 window.addEventListener("load", () => {
 
-    if (
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true
-    ) {
-        removeInstallButton();
-    }
+    checkInstalled();
 
 });
 
 
-// Capture install prompt
+// Get install prompt
 window.addEventListener("beforeinstallprompt", (e) => {
 
     e.preventDefault();
 
     deferredPrompt = e;
 
-    console.log("Install prompt ready");
+    console.log("Install available");
 
 });
 
 
-const installBtn = document.getElementById("installBtn");
-
-
+// Install button
 if (installBtn) {
 
     installBtn.addEventListener("click", async () => {
 
-        if (deferredPrompt) {
+        if (!deferredPrompt) {
 
-            deferredPrompt.prompt();
+            alert("App is already installed or installation is not available.");
 
-            await deferredPrompt.userChoice;
-
-            deferredPrompt = null;
+            return;
 
         }
+
+        deferredPrompt.prompt();
+
+        await deferredPrompt.userChoice;
+
+        deferredPrompt = null;
 
     });
 
 }
 
 
-// After installing
+// After install
 window.addEventListener("appinstalled", () => {
 
-    console.log("App installed");
+    console.log("Installed successfully");
 
-    removeInstallButton();
+    if (installBtn) {
+        installBtn.remove();
+    }
 
 });
-
