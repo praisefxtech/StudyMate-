@@ -4514,3 +4514,80 @@ window.addEventListener("appinstalled", () => {
     }
 
 });
+
+
+let deferredPrompt;
+
+const installBtn = document.getElementById("installBtn");
+
+
+// Remove button if already installed
+if (localStorage.getItem("studymateInstalled") === "yes") {
+
+    if (installBtn) {
+        installBtn.remove();
+    }
+
+}
+
+
+// Install prompt
+window.addEventListener("beforeinstallprompt", (e) => {
+
+    e.preventDefault();
+
+    deferredPrompt = e;
+
+});
+
+
+// Button click
+if (installBtn) {
+
+    installBtn.addEventListener("click", async () => {
+
+        if (!deferredPrompt) {
+
+            alert("App is already installed.");
+
+            return;
+
+        }
+
+
+        deferredPrompt.prompt();
+
+        const result = await deferredPrompt.userChoice;
+
+
+        if (result.outcome === "accepted") {
+
+            localStorage.setItem("studymateInstalled", "yes");
+
+            installBtn.remove();
+
+        }
+
+
+        deferredPrompt = null;
+
+    });
+
+}
+
+
+// Backup after install
+window.addEventListener("appinstalled", () => {
+
+    localStorage.setItem("studymateInstalled", "yes");
+
+    if (installBtn) {
+        installBtn.remove();
+    }
+
+});
+
+
+
+
+
