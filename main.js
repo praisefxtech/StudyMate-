@@ -4433,161 +4433,63 @@ console.log("Service Worker Error:", error);
 
 
 
-let deferredPrompt;
+// =============================
+// STUDYMATE INSTALL BUTTON
+// =============================
 
+let deferredPrompt;
 const installBtn = document.getElementById("installBtn");
 
-
-// Check if app is already installed
-function checkInstalled() {
-
-    const isStandalone =
+// Hide the button if the app is already running as an installed app
+window.addEventListener("DOMContentLoaded", () => {
+    if (
         window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true;
-
-    if (isStandalone) {
-
+        window.navigator.standalone === true
+    ) {
         if (installBtn) {
             installBtn.remove();
         }
-
-        console.log("App is installed");
-
-        return true;
     }
-
-    return false;
-}
-
-
-// Run check when page loads
-window.addEventListener("load", () => {
-
-    checkInstalled();
-
 });
 
-
-// Get install prompt
+// Save the install prompt
 window.addEventListener("beforeinstallprompt", (e) => {
-
     e.preventDefault();
-
     deferredPrompt = e;
 
-    console.log("Install available");
-
+    console.log("Install prompt is ready.");
 });
 
-
-// Install button
+// Install button click
 if (installBtn) {
-
     installBtn.addEventListener("click", async () => {
 
         if (!deferredPrompt) {
-
-            alert("App is already installed or installation is not available.");
-
+            alert("Install is not available. The app may already be installed.");
             return;
-
         }
 
         deferredPrompt.prompt();
 
-        await deferredPrompt.userChoice;
+        const { outcome } = await deferredPrompt.userChoice;
+
+        console.log("User choice:", outcome);
 
         deferredPrompt = null;
 
-    });
-
-}
-
-
-// After install
-window.addEventListener("appinstalled", () => {
-
-    console.log("Installed successfully");
-
-    if (installBtn) {
-        installBtn.remove();
-    }
-
-});
-
-
-let deferredPrompt;
-
-const installBtn = document.getElementById("installBtn");
-
-
-// Remove button if already installed
-if (localStorage.getItem("studymateInstalled") === "yes") {
-
-    if (installBtn) {
-        installBtn.remove();
-    }
-
-}
-
-
-// Install prompt
-window.addEventListener("beforeinstallprompt", (e) => {
-
-    e.preventDefault();
-
-    deferredPrompt = e;
-
-});
-
-
-// Button click
-if (installBtn) {
-
-    installBtn.addEventListener("click", async () => {
-
-        if (!deferredPrompt) {
-
-            alert("App is already installed.");
-
-            return;
-
-        }
-
-
-        deferredPrompt.prompt();
-
-        const result = await deferredPrompt.userChoice;
-
-
-        if (result.outcome === "accepted") {
-
-            localStorage.setItem("studymateInstalled", "yes");
-
+        if (outcome === "accepted") {
             installBtn.remove();
-
         }
-
-
-        deferredPrompt = null;
-
     });
-
 }
 
-
-// Backup after install
+// Remove button after installation
 window.addEventListener("appinstalled", () => {
-
-    localStorage.setItem("studymateInstalled", "yes");
+    console.log("StudyMate installed!");
 
     if (installBtn) {
         installBtn.remove();
     }
-
 });
-
-
-
 
 
