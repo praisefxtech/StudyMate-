@@ -4479,28 +4479,35 @@ if (installBtn) {
 }
 
 
-// Remove button when app is installed
+// Remove install button if app is already installed
+function removeInstallButton() {
+
+    const btn = document.getElementById("installBtn");
+
+    if (btn) {
+        btn.remove();
+        console.log("Install button removed");
+    }
+
+}
+
+
+// Check installed app mode
+if (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true
+) {
+
+    removeInstallButton();
+
+}
+
+
+// Also remove after installation
 window.addEventListener("appinstalled", () => {
 
-    console.log("🎉 StudyMate installed");
+    console.log("🎉 App installed");
 
-    const btn = document.getElementById("installBtn");
-
-    if (btn) {
-        btn.remove();
-    }
+    removeInstallButton();
 
 });
-
-
-// Remove button when opening installed app
-if (window.matchMedia("(display-mode: standalone)").matches) {
-
-    const btn = document.getElementById("installBtn");
-
-    if (btn) {
-        btn.remove();
-    }
-
-                                }
-
