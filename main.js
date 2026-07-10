@@ -4430,10 +4430,14 @@ console.log("Service Worker Error:", error);
 }
 
 
+
+
 let deferredPrompt;
 
 const installBtn = document.getElementById("installBtn");
 
+
+// Capture install prompt
 window.addEventListener("beforeinstallprompt", (event) => {
 
     event.preventDefault();
@@ -4445,26 +4449,58 @@ window.addEventListener("beforeinstallprompt", (event) => {
 });
 
 
-installBtn.addEventListener("click", async () => {
+// Install button click
+if (installBtn) {
 
-    console.log("🔥 Button clicked");
+    installBtn.addEventListener("click", async () => {
 
-    if (deferredPrompt) {
+        console.log("🔥 Button clicked");
 
-        deferredPrompt.prompt();
+        if (deferredPrompt) {
 
-        const choice = await deferredPrompt.userChoice;
+            deferredPrompt.prompt();
 
-        console.log(choice.outcome);
+            const choice = await deferredPrompt.userChoice;
 
-        deferredPrompt = null;
+            console.log(choice.outcome);
 
-    } else {
+            deferredPrompt = null;
 
-        alert("Chrome has not allowed installation yet. Check PWA setup.");
+        } else {
 
-        console.log("❌ No install prompt available");
+            alert("App is already installed or install is not available.");
 
+            console.log("❌ No install prompt available");
+
+        }
+
+    });
+
+}
+
+
+// Remove button when app is installed
+window.addEventListener("appinstalled", () => {
+
+    console.log("🎉 StudyMate installed");
+
+    const btn = document.getElementById("installBtn");
+
+    if (btn) {
+        btn.remove();
     }
 
 });
+
+
+// Remove button when opening installed app
+if (window.matchMedia("(display-mode: standalone)").matches) {
+
+    const btn = document.getElementById("installBtn");
+
+    if (btn) {
+        btn.remove();
+    }
+
+                                }
+
