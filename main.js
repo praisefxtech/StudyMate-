@@ -2265,6 +2265,8 @@ document.addEventListener(
 
 let focusAudio = new Audio();
 
+focusAudio.preload = "auto";
+
 focusAudio.loop = true;
 
 
@@ -2313,23 +2315,22 @@ const focusSounds = {
 };
 
 
-
 function playMusic(type){
 
- let song = focusSounds[type];
+  let song = focusSounds[type];
 
- if(!song) return;
+  if(!song) return;
 
+  focusAudio.pause();
+  focusAudio.src = song.file;
+  focusAudio.load();
 
- focusAudio.src = song.file;
+  focusAudio.play();
 
+  localStorage.setItem("lastMusic", type);
 
- focusAudio.play();
-
-
- document.getElementById("nowPlaying").textContent =
- "🎵 Playing: " + song.name;
-
+  document.getElementById("nowPlaying").textContent =
+  "🎵 Playing: " + song.name;
 
 }
 
