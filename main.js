@@ -4444,9 +4444,11 @@ const installBtn = document.getElementById("installBtn");
 // Hide the button if the app is already running as an installed app
 window.addEventListener("DOMContentLoaded", () => {
     if (
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true
-    ) {
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true ||
+    window.Capacitor ||
+    navigator.userAgent.includes("wv")
+) {
         if (installBtn) {
             installBtn.remove();
         }
