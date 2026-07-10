@@ -1,4 +1,4 @@
-const CACHE_NAME = "studymate-v10";
+const CACHE_NAME = "studymate-v11";
 
 const FILES_TO_CACHE = [
   "./",
@@ -14,11 +14,11 @@ const FILES_TO_CACHE = [
   "notification.mp3",
 
   "calm.mp3",
-  "dream.mp3",
   "sky.mp3",
+  "dream.mp3",
   "storm.mp3",
-  "piano.mp3",
   "ocean.mp3",
+  "piano.mp3",
   "space.mp3",
   "silent.mp3"
 ];
