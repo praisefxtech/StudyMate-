@@ -4452,38 +4452,21 @@ window.addEventListener("beforeinstallprompt", (e) => {
 });
 
 // Install button click
-if (installBtn) {
+const installBtn = document.getElementById("installBtn");
 
-    installBtn.addEventListener("click", async () => {
+installBtn.addEventListener("click", () => {
 
-        if (deferredPrompt) {
+    if (deferredPrompt) {
 
-            deferredPrompt.prompt();
+        deferredPrompt.prompt();
 
-            const choice = await deferredPrompt.userChoice;
+    } else {
 
-            console.log("User choice:", choice.outcome);
+        alert("Install prompt is not available.\n\nTo install StudyMate:\n\n1. Tap ⋮ in Chrome\n2. Tap 'Add to Home screen'");
 
-            deferredPrompt = null;
+    }
 
-            installBtn.style.display = "none";
-
-        } else {
-
-            alert(
-`To install StudyMate:
-
-1. Tap the ⋮ menu in Chrome.
-2. Tap "Add to Home screen" or "Install app".
-3. Follow the prompts to finish installing.`
-            );
-
-        }
-
-    });
-
-}
-
+});
 // Hide button after installation
 window.addEventListener("appinstalled", () => {
 
