@@ -1,4 +1,4 @@
-const CACHE_NAME = "studymate-v11";
+const CACHE_NAME = "studymate-v12";
 
 const FILES_TO_CACHE = [
   "./",
@@ -25,19 +25,26 @@ const FILES_TO_CACHE = [
 
 
 // INSTALL
-self.addEventListener("install", event => {
-
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-    .then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
-  );
+self.addEventListener("install", (event) => {
 
   self.skipWaiting();
 
-});
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(async (cache) => {
 
+      for (const file of FILES_TO_CACHE) {
+        try {
+          await cache.add(file);
+          console.log("Cached:", file);
+        } catch (err) {
+          console.error("Failed to cache:", file, err);
+        }
+      }
+
+    })
+  );
+
+});
 
 // ACTIVATE
 self.addEventListener("activate", event => {
