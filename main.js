@@ -4430,50 +4430,76 @@ console.log("Service Worker Error:", error);
 }
 
 
-/* =========================
-   PWA INSTALL BUTTON
-========================= */
+// ==============================
+// PWA INSTALL BUTTON
+// ==============================
 
-let deferredPrompt = null;
+let deferredPrompt;
 
 const installBtn = document.getElementById("installBtn");
 
-// Listen for the install prompt
+
+// Listen for install availability
 window.addEventListener("beforeinstallprompt", (e) => {
 
+    // Stop Chrome from showing its own prompt
     e.preventDefault();
 
+    // Save the event
     deferredPrompt = e;
 
+    console.log("Install prompt ready");
+
+    // Keep button visible
     if (installBtn) {
         installBtn.style.display = "block";
     }
 
 });
 
-// Install button click
-const installBtn = document.getElementById("installBtn");
 
-installBtn.addEventListener("click", () => {
+// Button click
+if (installBtn) {
 
-    if (deferredPrompt) {
+    installBtn.addEventListener("click", async () => {
 
+        console.log("Install button clicked");
+
+
+        if (!deferredPrompt) {
+
+            alert("Install is not available yet. Open the app in Chrome and try again.");
+
+            return;
+
+        }
+
+
+        // Show install popup
         deferredPrompt.prompt();
 
-    } else {
 
-        alert("Install prompt is not available.\n\nTo install StudyMate:\n\n1. Tap ⋮ in Chrome\n2. Tap 'Add to Home screen'");
+        // Wait for user response
+        const result = await deferredPrompt.userChoice;
 
-    }
 
-});
-// Hide button after installation
+        console.log("Install choice:", result.outcome);
+
+
+        // Clear prompt
+        deferredPrompt = null;
+
+
+    });
+
+}
+
+
+// Detect successful installation
 window.addEventListener("appinstalled", () => {
 
-    console.log("StudyMate installed successfully.");
+    console.log("App installed successfully");
 
-    if (installBtn) {
-        installBtn.style.display = "none";
-    }
+    alert("StudyMate installed successfully 🎉");
 
 });
