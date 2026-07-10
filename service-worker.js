@@ -1,4 +1,4 @@
-const CACHE_NAME = "studymate-v12";
+const CACHE_NAME = "studymate-v13";
 
 const FILES_TO_CACHE = [
   "./",
@@ -80,8 +80,20 @@ self.addEventListener("fetch", event => {
     caches.match(event.request)
     .then(response => {
 
-      return response || fetch(event.request)
-      .catch(() => caches.match("index.html"));
+      if(response){
+        return response;
+      }
+
+      return fetch(event.request)
+      .catch(() => {
+
+        if(event.request.destination === "audio"){
+          return caches.match("./" + event.request.url.split("/").pop());
+        }
+
+        return caches.match("index.html");
+
+      });
 
     })
 
