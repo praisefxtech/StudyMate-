@@ -23,4 +23,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com
+          praisekenechukwuchigbo@example.com
