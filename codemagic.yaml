@@ -2,10 +2,6 @@ workflows:
   android-build:
     name: StudyMate Android Build
     max_build_duration: 60
-    
-
-      vars:
-        PACKAGE_NAME: "com.praisefxtech.studymate"
 
     scripts:
       - name: Build Android APK
