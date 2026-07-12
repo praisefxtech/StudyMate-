@@ -23,4 +23,4 @@ workflows:
     publishing:
       email:
         recipients:
-          "praisekenechukwuchigbo@gmail.com"
+          {praisekenechukwuchigbo@gmail.com}
